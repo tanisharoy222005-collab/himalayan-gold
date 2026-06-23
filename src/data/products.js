@@ -1,7 +1,15 @@
 const products = [
-
 {
-id: 1,
+  id: 1,
+  name: "Raw Himalayan Honey",
+  price: "₹999",
+  image: "https://images.unsplash.com/photo-1587049352851-8d4e89133924?w=800",
+  badge: "Best Seller",
+  description:
+    "Premium raw Himalayan honey harvested from wild mountain flowers."
+}, 
+{
+id: 2,
 name: "Wild Forest Honey",
 image:
 "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=800",
@@ -16,7 +24,7 @@ description:
 },
 
 {
-id: 2,
+id: 3,
 name: "Litchi Blossom Honey",
 image:
 "https://images.unsplash.com/photo-1471943311424-646960669fbc?w=800",
@@ -31,7 +39,7 @@ description:
 },
 
 {
-id: 3,
+id: 4,
 name: "Kashmir Acacia Honey",
 image:
 "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=800",
@@ -46,7 +54,7 @@ description:
 },
 
 {
-id: 4,
+id: 5,
 name: "Multiflora Himalayan Honey",
 image:
 "https://images.unsplash.com/photo-1514996937319-344454492b37?w=800",
@@ -61,7 +69,7 @@ description:
 },
 
 {
-id: 5,
+id: 6,
 name: "Sidr Mountain Honey",
 image:
 "https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=800",
@@ -76,7 +84,7 @@ description:
 },
 
 {
-id: 6,
+id: 7,
 name: "Rhododendron Honey",
 image:
 "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800",
@@ -91,7 +99,7 @@ description:
 },
 
 {
-id: 7,
+id: 8,
 name: "Apple Blossom Honey",
 image:
 "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
@@ -106,7 +114,7 @@ description:
 },
 
 {
-id: 8,
+id: 9,
 name: "Premium Reserve Honey",
 image:
 "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800",

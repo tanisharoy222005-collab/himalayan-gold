@@ -5,8 +5,9 @@ function Navbar() {
 
   const { cart } = useCart();
 
-  const totalItems = cart.reduce(
-    (total,item) => total + item.quantity,
+  const count = cart.reduce(
+    (sum, item) =>
+      sum + item.quantity,
     0
   );
 
@@ -26,15 +27,15 @@ function Navbar() {
           Home
         </Link>
 
-        <Link to="/">
+        <Link to="/?section=products">
           Products
         </Link>
 
-        <Link to="/">
+        <Link to="/?section=recipes">
           Recipes
         </Link>
 
-        <Link to="/">
+        <Link to="/?section=contact">
           Contact
         </Link>
 
@@ -42,7 +43,7 @@ function Navbar() {
           to="/cart"
           className="cart-link"
         >
-          Cart ({totalItems})
+          Cart ({count})
         </Link>
 
       </div>

@@ -7,17 +7,15 @@ function Recipes() {
       className="recipes"
       id="recipes"
     >
+      <h2>Himalayan Honey Recipes</h2>
 
-      <h2>Honey Recipes</h2>
-
-      <div className="recipe-grid">
+      <div className="grid">
 
         {recipes.map((recipe) => (
 
-          <Link
+          <div
+            className="card"
             key={recipe.id}
-            to={`/recipe/${recipe.id}`}
-            className="recipe-card"
           >
 
             <img
@@ -25,14 +23,25 @@ function Recipes() {
               alt={recipe.title}
             />
 
-            <h3>{recipe.title}</h3>
+            <div className="card-content">
 
-          </Link>
+              <h3>{recipe.title}</h3>
+
+              <Link
+                to={`/recipe/${recipe.id}`}
+              >
+                <button>
+                  View Recipe
+                </button>
+              </Link>
+
+            </div>
+
+          </div>
 
         ))}
 
       </div>
-
     </section>
   );
 }

@@ -1,5 +1,3 @@
-// src/components/ProductGrid.jsx
-
 import { Link } from "react-router-dom";
 import products from "../data/products";
 
@@ -21,21 +19,23 @@ function ProductGrid() {
           >
 
             <img
-              src={product.image}
+              src={product.image || "/images/default-honey.jpg"}
               alt={product.name}
             />
 
-            <h3>{product.name}</h3>
+            <div className="card-content">
 
-            <p>{product.price}</p>
+              <h3>{product.name}</h3>
 
-            <Link
-              to={`/product/${product.id}`}
-            >
-              <button>
-                View Product
-              </button>
-            </Link>
+              <p>{product.price}</p>
+
+              <Link to={`/product/${product.id}`}>
+                <button>
+                  View Product
+                </button>
+              </Link>
+
+            </div>
 
           </div>
 

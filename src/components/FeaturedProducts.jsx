@@ -1,49 +1,39 @@
 function FeaturedProducts() {
   return (
-    <section className="featured">
+    <section className="featured-product">
 
-      <h2>
+      <div className="featured-badge">
         ⭐ Best Seller
-      </h2>
+      </div>
 
-      <div className="bestseller">
+      <div className="featured-container">
 
-        <img
-          src="https://images.unsplash.com/photo-1587049352851-8d4e89133924"
-          alt=""
-        />
+        <div className="featured-image">
+          <img
+            src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?w=800"
+            alt="Raw Himalayan Honey"
+          />
+        </div>
 
-        <div>
+        <div className="featured-content">
 
-          <h3>
-            Raw Himalayan Honey
-          </h3>
+          <h2>Raw Himalayan Honey</h2>
 
           <p>
-            Our most loved honey,
-            harvested from wild
-            Himalayan flowers.
+            Harvested from wild Himalayan flowers,
+            naturally rich in antioxidants and nutrients.
           </p>
 
           <ul>
-
-            <li>
-              100% Raw & Unfiltered
-            </li>
-
-            <li>
-              Rich In Antioxidants
-            </li>
-
-            <li>
-              No Added Sugar
-            </li>
-
-            <li>
-              Sustainably Harvested
-            </li>
-
+            <li>100% Raw & Unfiltered</li>
+            <li>Rich In Antioxidants</li>
+            <li>No Added Sugar</li>
+            <li>Sustainably Harvested</li>
           </ul>
+
+          <div className="featured-price">
+            ₹999
+          </div>
 
         </div>
 

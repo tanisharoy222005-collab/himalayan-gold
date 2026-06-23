@@ -15,29 +15,55 @@ function RecipeDetails() {
   return (
     <div className="recipe-page">
 
-      <img
-        src={recipe.image}
-        alt={recipe.title}
-        className="recipe-banner"
-      />
+      <div className="recipe-layout">
 
-      <h1>{recipe.title}</h1>
+        <div className="recipe-image-section">
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="recipe-banner"
+          />
+        </div>
 
-      <h2>Ingredients (1 Serving)</h2>
+        <div className="recipe-content-section">
 
-      <ul>
-        {recipe.ingredients.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+          <div className="recipe-tag">
+            🍯 Himalayan Honey Recipe
+          </div>
 
-      <h2>Instructions</h2>
+          <h1>{recipe.title}</h1>
 
-      <ol>
-        {recipe.steps.map((step, index) => (
-          <li key={index}>{step}</li>
-        ))}
-      </ol>
+          <div className="recipe-card">
+
+            <h2>⭐ Ingredients</h2>
+
+            <ul className="ingredient-list">
+              {recipe.ingredients.map((item, index) => (
+                <li key={index}>
+                  ✓ {item}
+                </li>
+              ))}
+            </ul>
+
+          </div>
+
+          <div className="recipe-card">
+
+            <h2>📝 Instructions</h2>
+
+            <ol className="instruction-list">
+              {recipe.steps.map((step, index) => (
+                <li key={index}>
+                  {step}
+                </li>
+              ))}
+            </ol>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
   );

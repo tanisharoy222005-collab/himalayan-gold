@@ -4,7 +4,6 @@ function ContactCTA() {
       className="contact-cta"
       id="contact"
     >
-
       <h2>
         Have Questions?
       </h2>
@@ -13,9 +12,12 @@ function ContactCTA() {
         We'd love to hear from you.
       </p>
 
-      <button>
+      <a
+        href="mailto:info@himalayangold.com"
+        className="contact-btn"
+      >
         Contact Us
-      </button>
+      </a>
 
     </section>
   );
