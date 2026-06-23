@@ -1,266 +1,295 @@
 import { useState, useEffect } from "react";
+import { supabase } from "./supabaseClient";
 
-function Admin() {
+function Admin() 
+{
+const [orders, setOrders] = useState([]);
 
-  const [orders, setOrders] =
-    useState([]);
+useEffect(() => {
+fetchOrders();
+}, []);
 
-  useEffect(() => {
+async function fetchOrders() {
+const { data, error } = await supabase
+.from("orders")
+.select("*")
+.order("created_at", { ascending: false });
 
-    const savedOrders =
-      JSON.parse(
-        localStorage.getItem("orders")
-      ) || [];
+if (error) {
+  console.error(error);
+  return;
+}
 
-    setOrders(savedOrders);
+setOrders(data || []);
 
-  }, []);
+}
 
-  const approvePayment = (
-    index
-  ) => {
+async function approvePayment(order) {
 
-    const updatedOrders =
-      [...orders];
 
-    updatedOrders[index]
-      .paymentStatus =
-      "Paid";
+const trackingId =
+  "HGTRK-" +
+  Math.floor(
+    100000 +
+    Math.random() * 900000
+  );
 
-    updatedOrders[index]
-      .shippingStatus =
-      "Processing";
+const couriers = [
+  "Shiprocket",
+  "Delhivery",
+  "Blue Dart",
+  "DTDC",
+  "Xpressbees"
+];
 
-    if (
-      !updatedOrders[index]
-        .trackingId ||
-      updatedOrders[index]
-        .trackingId ===
-      "Pending"
-    ) {
+const courier =
+  couriers[
+    Math.floor(
+      Math.random() *
+      couriers.length
+    )
+  ];
 
-      updatedOrders[index]
-        .trackingId =
-        "TRK" +
-        Math.floor(
-          100000 +
-          Math.random() *
-          900000
-        );
-    }
+const deliveryDate =
+  new Date();
 
-    setOrders(
-      updatedOrders
+deliveryDate.setDate(
+  deliveryDate.getDate() + 5
+);
+
+const estimatedDelivery =
+  deliveryDate.toDateString();
+
+const { error } =
+  await supabase
+    .from("orders")
+    .update({
+      payment_status: "Paid",
+      shipping_status:
+        "Pickup Scheduled",
+      tracking_id:
+        trackingId,
+      courier_name:
+        courier,
+      estimated_delivery:
+        estimatedDelivery
+    })
+    .eq(
+      "order_id",
+      order.order_id
     );
 
-    localStorage.setItem(
-      "orders",
-      JSON.stringify(
-        updatedOrders
-      )
+if (error) {
+  console.error(error);
+  alert(
+    "Error updating order"
+  );
+  return;
+}
+
+alert(
+  `Payment Approved
+
+
+Tracking ID:
+${trackingId}
+
+Courier:
+${courier}
+
+Estimated Delivery:
+${estimatedDelivery}`
+);
+
+
+fetchOrders();
+
+
+}
+
+async function updateShipping(
+orderId,
+status
+) {
+
+
+const { error } =
+  await supabase
+    .from("orders")
+    .update({
+      shipping_status:
+        status
+    })
+    .eq(
+      "order_id",
+      orderId
     );
-  };
 
-  const updateShipping =
-    (
-      index,
-      value
-    ) => {
+if (error) {
+  console.error(error);
+  return;
+}
 
-      const updatedOrders =
-        [...orders];
+fetchOrders();
 
-      updatedOrders[index]
-        .shippingStatus =
-        value;
 
-      setOrders(
-        updatedOrders
-      );
+}
 
-      localStorage.setItem(
-        "orders",
-        JSON.stringify(
-          updatedOrders
-        )
-      );
-    };
+return (
+<div
+style={{
+padding: "30px"
+}}
+> <h1>
+Admin Dashboard </h1>
 
-  return (
-    <div
-      style={{
-        padding: "30px"
-      }}
-    >
+```
+  <table
+    border="1"
+    cellPadding="10"
+    width="100%"
+  >
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Customer</th>
+        <th>Email</th>
+        <th>Amount</th>
+        <th>Payment</th>
+        <th>Shipping</th>
+        <th>Tracking</th>
+        <th>Courier</th>
+        <th>Delivery</th>
+        <th>Action</th>
+      </tr>
+    </thead>
 
-      <h1>
-        Admin Dashboard
-      </h1>
+    <tbody>
 
-      <table
-        border="1"
-        cellPadding="10"
-        width="100%"
-      >
+      {orders.map(
+        (order) => (
 
-        <thead>
+        <tr
+          key={
+            order.order_id
+          }
+        >
 
-          <tr>
+          <td>
+            {
+              order.order_id
+            }
+          </td>
 
-            <th>
-              Order ID
-            </th>
+          <td>
+            {order.name}
+          </td>
 
-            <th>
-              Customer
-            </th>
+          <td>
+            {
+              order.user_email
+            }
+          </td>
 
-            <th>
-              Email
-            </th>
+          <td>
+            ₹{order.amount}
+          </td>
 
-            <th>
-              Amount
-            </th>
+          <td>
+            {
+              order.payment_status
+            }
+          </td>
 
-            <th>
-              Payment
-            </th>
+          <td>
 
-            <th>
-              Shipping
-            </th>
-
-            <th>
-              Tracking
-            </th>
-
-            <th>
-              Action
-            </th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          {orders.map(
-            (
-              order,
-              index
-            ) => (
-
-            <tr
-              key={
-                order.orderId
+            <select
+              value={
+                order.shipping_status
+              }
+              onChange={(e) =>
+                updateShipping(
+                  order.order_id,
+                  e.target.value
+                )
               }
             >
 
-              <td>
-                {
-                  order.orderId
+              <option>
+                Awaiting Payment
+              </option>
+
+              <option>
+                Pickup Scheduled
+              </option>
+
+              <option>
+                Shipped
+              </option>
+
+              <option>
+                Delivered
+              </option>
+
+            </select>
+
+          </td>
+
+          <td>
+            {
+              order.tracking_id ||
+              "Pending"
+            }
+          </td>
+
+          <td>
+            {
+              order.courier_name ||
+              "-"
+            }
+          </td>
+
+          <td>
+            {
+              order.estimated_delivery ||
+              "-"
+            }
+          </td>
+
+          <td>
+
+            {order.payment_status !==
+            "Paid" ? (
+
+              <button
+                onClick={() =>
+                  approvePayment(
+                    order
+                  )
                 }
-              </td>
+              >
+                Confirm Payment
+              </button>
 
-              <td>
-                {order.name}
-              </td>
+            ) : (
 
-              <td>
-                {order.email}
-              </td>
+              "Approved"
 
-              <td>
-                ₹
-                {
-                  order.amount
-                }
-              </td>
+            )}
 
-              <td>
-                {
-                  order.paymentStatus
-                }
-              </td>
+          </td>
 
-              <td>
+        </tr>
 
-                <select
-                  value={
-                    order.shippingStatus
-                  }
-                  onChange={e =>
-                    updateShipping(
-                      index,
-                      e.target
-                        .value
-                    )
-                  }
-                >
+      ))}
 
-                  <option>
-                    Awaiting Payment
-                  </option>
+    </tbody>
 
-                  <option>
-                    Processing
-                  </option>
+  </table>
+</div>
 
-                  <option>
-                    Shipped
-                  </option>
 
-                  <option>
-                    Delivered
-                  </option>
-
-                </select>
-
-              </td>
-
-              <td>
-                {
-                  order.trackingId
-                }
-              </td>
-
-              <td>
-
-                {order
-                  .paymentStatus !==
-                "Paid" ? (
-
-                  <button
-                    onClick={() =>
-                      approvePayment(
-                        index
-                      )
-                    }
-                  >
-
-                    Confirm Payment
-
-                  </button>
-
-                ) : (
-
-                  "Approved"
-
-                )}
-
-              </td>
-
-            </tr>
-
-          ))}
-
-        </tbody>
-
-      </table>
-
-    </div>
-  );
+);
 }
 
 export default Admin;

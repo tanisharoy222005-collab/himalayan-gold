@@ -1,150 +1,319 @@
 import { useState } from "react";
+import { supabase } from "./supabaseClient";
 
 function TrackOrder() {
 
-  const [orderId,
-    setOrderId] =
+  const [trackingId, setTrackingId] =
     useState("");
 
-  const [order,
-    setOrder] =
+  const [order, setOrder] =
     useState(null);
 
-  const searchOrder =
-    () => {
+  const searchTracking =
+    async () => {
 
-      const orders =
-        JSON.parse(
-          localStorage.getItem(
-            "orders"
+      const { data, error } =
+        await supabase
+          .from("orders")
+          .select("*")
+          .eq(
+            "tracking_id",
+            trackingId
           )
-        ) || [];
+          .single();
 
-      const found =
-        orders.find(
-          item =>
-            item.orderId ===
-            orderId
+      if (error) {
+        alert(
+          "Tracking ID not found"
         );
+        return;
+      }
 
-      setOrder(found);
+      setOrder(data);
     };
+
+  const getStep = () => {
+
+    if (!order) return 0;
+
+    switch (
+      order.shipping_status
+    ) {
+
+      case "Awaiting Payment":
+        return 1;
+
+      case "Pickup Scheduled":
+        return 3;
+
+      case "Shipped":
+        return 4;
+
+      case "Delivered":
+        return 5;
+
+      default:
+        return 1;
+    }
+  };
+
+  const currentStep =
+    getStep();
 
   return (
     <div
       style={{
-        padding: "30px"
+        padding: "40px",
+        maxWidth: "900px",
+        margin: "auto"
       }}
     >
 
       <h1>
-        Track Order
+        Track Your Order
       </h1>
 
-      <input
-        placeholder="Enter Order ID"
-        value={orderId}
-        onChange={e =>
-          setOrderId(
-            e.target.value
-          )
-        }
-      />
-
-      <button
-        onClick={
-          searchOrder
-        }
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          marginBottom:
+            "20px"
+        }}
       >
-        Search
-      </button>
+
+        <input
+          type="text"
+          placeholder="Enter Tracking ID"
+          value={trackingId}
+          onChange={(e) =>
+            setTrackingId(
+              e.target.value
+            )
+          }
+          style={{
+            flex: 1,
+            padding: "12px"
+          }}
+        />
+
+        <button
+          onClick={
+            searchTracking
+          }
+        >
+          Track
+        </button>
+
+      </div>
 
       {order && (
 
         <div
           style={{
-            marginTop:
-              "20px"
+            border:
+              "1px solid #ddd",
+            borderRadius:
+              "12px",
+            padding: "25px"
           }}
         >
 
           <h2>
-            {
-              order.orderId
-            }
+            Order Details
           </h2>
 
           <p>
-            Tracking ID:
-            {" "}
+            <strong>
+              Order ID:
+            </strong>{" "}
+            {order.order_id}
+          </p>
+
+          <p>
+            <strong>
+              Tracking ID:
+            </strong>{" "}
+            {order.tracking_id}
+          </p>
+
+          <p>
+            <strong>
+              Customer:
+            </strong>{" "}
+            {order.name}
+          </p>
+
+          <p>
+            <strong>
+              Shipping Status:
+            </strong>{" "}
             {
-              order.trackingId
+              order.shipping_status
             }
           </p>
 
           <p>
-            Payment:
-            {" "}
+            <strong>
+              Estimated Delivery:
+            </strong>{" "}
             {
-              order.paymentStatus
+              order.estimated_delivery ||
+              "5-7 Business Days"
             }
           </p>
 
           <p>
-            Shipping:
-            {" "}
+            <strong>
+              Courier Partner:
+            </strong>{" "}
             {
-              order.shippingStatus
+              order.courier_name ||
+              "Not Yet Connected"
             }
           </p>
 
           <hr />
 
-          <p>
-            ✓ Order
-            Placed
-          </p>
+          <h3>
+            Shipment Timeline
+          </h3>
 
-          {order
-            .paymentStatus ===
-          "Paid" && (
+          <div
+            style={{
+              marginTop:
+                "20px",
+              fontSize:
+                "18px"
+            }}
+          >
+
             <p>
-              ✓ Payment
-              Verified
+              {currentStep >= 1
+                ? "✅"
+                : "⬜"}{" "}
+              Order Placed
             </p>
+
+            <p>
+              {currentStep >= 2
+                ? "✅"
+                : "⬜"}{" "}
+              Payment Verified
+            </p>
+
+            <p>
+              {currentStep >= 3
+                ? "✅"
+                : "⬜"}{" "}
+              Pickup Scheduled
+            </p>
+
+            <p>
+              {currentStep >= 4
+                ? "✅"
+                : "⬜"}{" "}
+              In Transit
+            </p>
+
+            <p>
+              {currentStep >= 5
+                ? "✅"
+                : "⬜"}{" "}
+              Delivered
+            </p>
+
+          </div>
+
+          <hr />
+
+          <h3>
+            Latest Update
+          </h3>
+
+          {order.shipping_status ===
+          "Awaiting Payment" && (
+
+            <p>
+              Waiting for payment
+              verification from
+              admin team.
+            </p>
+
           )}
 
-          {(order
-            .shippingStatus ===
-            "Processing" ||
-            order
-              .shippingStatus ===
-              "Shipped" ||
-            order
-              .shippingStatus ===
-              "Delivered") && (
+          {order.shipping_status ===
+          "Pickup Scheduled" && (
+
             <p>
-              ✓ Processing
+              Payment confirmed.
+              Pickup request has
+              been created and
+              courier assignment
+              is in progress.
             </p>
+
           )}
 
-          {(order
-            .shippingStatus ===
-            "Shipped" ||
-            order
-              .shippingStatus ===
-              "Delivered") && (
+          {order.shipping_status ===
+          "Shipped" && (
+
             <p>
-              ✓ Shipped
+              Your package has left
+              our warehouse and is
+              currently in transit.
             </p>
+
           )}
 
-          {order
-            .shippingStatus ===
-            "Delivered" && (
+          {order.shipping_status ===
+          "Delivered" && (
+
             <p>
-              ✓ Delivered
+              Your order has been
+              delivered successfully.
+              Thank you for shopping
+              with Himalayan Gold.
             </p>
+
+          )}
+
+          {!order.courier_name && (
+
+            <div
+              style={{
+                marginTop:
+                  "20px",
+                padding:
+                  "15px",
+                background:
+                  "#fff8e1",
+                border:
+                  "1px solid #ffd54f",
+                borderRadius:
+                  "8px"
+              }}
+            >
+
+              <strong>
+                Demo Mode
+              </strong>
+
+              <p>
+                Live courier
+                integration with
+                Shiprocket /
+                Delhivery has not
+                been connected yet.
+
+                Tracking updates
+                shown here are
+                simulated for
+                demonstration.
+              </p>
+
+            </div>
+
           )}
 
         </div>

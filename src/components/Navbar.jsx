@@ -6,8 +6,7 @@ function Navbar() {
   const { cart } = useCart();
 
   const count = cart.reduce(
-    (sum, item) =>
-      sum + item.quantity,
+    (sum, item) => sum + item.quantity,
     0
   );
 
@@ -37,6 +36,10 @@ function Navbar() {
 
         <Link to="/?section=contact">
           Contact
+        </Link>
+
+        <Link to="/track-order">
+          Track Order
         </Link>
 
         <Link

@@ -1,0 +1,3231 @@
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\Benefits.jsx
+===============================
+function Benefits() {
+  return (
+    <section className="benefits">
+
+      <h2>Why Choose Us?</h2>
+
+      <div className="benefit-grid">
+
+        <div>
+          <h3>100% Natural</h3>
+          <p>No additives.</p>
+        </div>
+
+        <div>
+          <h3>Ethically Sourced</h3>
+          <p>Responsible beekeeping.</p>
+        </div>
+
+        <div>
+          <h3>Rich Flavor</h3>
+          <p>Unique mountain flora.</p>
+        </div>
+
+      </div>
+
+    </section>
+  );
+}
+
+export default Benefits;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\BrandStory.jsx
+===============================
+function BrandStory() {
+  return (
+    <section
+      id="story"
+      className="story"
+    >
+      <h2>Our Story</h2>
+
+      <p>
+        Himalayan Gold sources honey
+        from remote mountain apiaries,
+        ensuring purity and exceptional
+        taste in every jar.
+      </p>
+    </section>
+  );
+}
+
+export default BrandStory;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\ContactCTA.jsx
+===============================
+function ContactCTA() {
+  return (
+    <section
+      className="contact-cta"
+      id="contact"
+    >
+      <h2>
+        Have Questions?
+      </h2>
+
+      <p>
+        We'd love to hear from you.
+      </p>
+
+      <a
+        href="mailto:info@himalayangold.com"
+        className="contact-btn"
+      >
+        Contact Us
+      </a>
+
+    </section>
+  );
+}
+
+export default ContactCTA;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\FeaturedProducts.jsx
+===============================
+function FeaturedProducts() {
+  return (
+    <section className="featured-product">
+
+      <div className="featured-badge">
+        ⭐ Best Seller
+      </div>
+
+      <div className="featured-container">
+
+        <div className="featured-image">
+          <img
+            src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?w=800"
+            alt="Raw Himalayan Honey"
+          />
+        </div>
+
+        <div className="featured-content">
+
+          <h2>Raw Himalayan Honey</h2>
+
+          <p>
+            Harvested from wild Himalayan flowers,
+            naturally rich in antioxidants and nutrients.
+          </p>
+
+          <ul>
+            <li>100% Raw & Unfiltered</li>
+            <li>Rich In Antioxidants</li>
+            <li>No Added Sugar</li>
+            <li>Sustainably Harvested</li>
+          </ul>
+
+          <div className="featured-price">
+            ₹999
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+  );
+}
+
+export default FeaturedProducts;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\Footer.jsx
+===============================
+function Footer() {
+  return (
+    <footer className="footer">
+
+      <div className="footer-content">
+
+        <h3>Himalayan Gold</h3>
+
+        <p>
+          Pure Himalayan Honey
+        </p>
+
+        <div className="footer-links">
+
+          <a href="#products">
+            Products
+          </a>
+
+          <a href="#recipes">
+            Recipes
+          </a>
+
+          <a href="#story">
+            Story
+          </a>
+
+          <a href="#contact">
+            Contact
+          </a>
+
+        </div>
+
+        <p className="copyright">
+          © 2026 Himalayan Gold.
+          All Rights Reserved.
+        </p>
+
+      </div>
+
+    </footer>
+  );
+}
+
+export default Footer;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\Hero.jsx
+===============================
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
+function Hero() {
+
+  const navigate = useNavigate();
+
+  const handleExplore = () => {
+
+    if (window.location.pathname !== "/") {
+      navigate("/");
+
+      setTimeout(() => {
+        const products =
+          document.getElementById("products");
+
+        if (products) {
+          products.scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+      }, 300);
+
+    } else {
+
+      const products =
+        document.getElementById("products");
+
+      if (products) {
+        products.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+
+    }
+  };
+
+  return (
+    <section className="hero">
+
+      <img
+        className="hero-bg"
+        src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600"
+        alt="Indian Himalayas"
+      />
+
+      <div className="hero-overlay">
+
+        <motion.h1
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          Pure Gold From
+          <br />
+          The Indian Himalayas
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          Harvested from pristine mountain forests,
+          wildflower valleys, and remote Himalayan
+          regions of Uttarakhand and Himachal Pradesh.
+        </motion.p>
+
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          onClick={handleExplore}
+        >
+          Explore Collection
+        </motion.button>
+
+      </div>
+
+    </section>
+  );
+}
+
+export default Hero;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\Navbar.jsx
+===============================
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+
+function Navbar() {
+
+  const { cart } = useCart();
+
+  const count = cart.reduce(
+    (sum, item) =>
+      sum + item.quantity,
+    0
+  );
+
+  return (
+    <nav className="navbar">
+
+      <Link
+        to="/"
+        className="logo"
+      >
+        Himalayan Gold
+      </Link>
+
+      <div className="nav-links">
+
+        <Link to="/">
+          Home
+        </Link>
+
+        <Link to="/?section=products">
+          Products
+        </Link>
+
+        <Link to="/?section=recipes">
+          Recipes
+        </Link>
+
+        <Link to="/?section=contact">
+          Contact
+        </Link>
+
+        <Link
+          to="/cart"
+          className="cart-link"
+        >
+          Cart ({count})
+        </Link>
+
+      </div>
+
+    </nav>
+  );
+}
+
+export default Navbar;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\Newsletter.jsx
+===============================
+function Newsletter() {
+  return (
+    <section className="newsletter">
+
+      <h2>Join Our Newsletter</h2>
+
+      <p>
+        Get exclusive offers, recipes,
+        and wellness tips.
+      </p>
+
+      <form className="newsletter-form">
+
+        <input
+          type="email"
+          placeholder="Enter your email"
+        />
+
+        <button type="submit">
+          Subscribe
+        </button>
+
+      </form>
+
+    </section>
+  );
+}
+
+export default Newsletter;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\ProductGrid.jsx
+===============================
+import { Link } from "react-router-dom";
+import products from "../data/products";
+
+function ProductGrid() {
+  return (
+    <section
+      className="products"
+      id="products"
+    >
+      <h2>Our Collection</h2>
+
+      <div className="grid">
+
+        {products.map((product) => (
+
+          <div
+            className="card"
+            key={product.id}
+          >
+
+            <img
+              src={product.image || "/images/default-honey.jpg"}
+              alt={product.name}
+            />
+
+            <div className="card-content">
+
+              <h3>{product.name}</h3>
+
+              <p>{product.price}</p>
+
+              <Link to={`/product/${product.id}`}>
+                <button>
+                  View Product
+                </button>
+              </Link>
+
+            </div>
+
+          </div>
+
+        ))}
+
+      </div>
+    </section>
+  );
+}
+
+export default ProductGrid;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\Recipes.jsx
+===============================
+import recipes from "../data/recipes";
+import { Link } from "react-router-dom";
+
+function Recipes() {
+  return (
+    <section
+      className="recipes"
+      id="recipes"
+    >
+      <h2>Himalayan Honey Recipes</h2>
+
+      <div className="grid">
+
+        {recipes.map((recipe) => (
+
+          <div
+            className="card"
+            key={recipe.id}
+          >
+
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+            />
+
+            <div className="card-content">
+
+              <h3>{recipe.title}</h3>
+
+              <Link
+                to={`/recipe/${recipe.id}`}
+              >
+                <button>
+                  View Recipe
+                </button>
+              </Link>
+
+            </div>
+
+          </div>
+
+        ))}
+
+      </div>
+    </section>
+  );
+}
+
+export default Recipes;
+
+
+===============================
+FILE: D:\himalayan-gold\src\components\Reviews.jsx
+===============================
+function Reviews() {
+  return (
+    <section className="reviews">
+
+      <h2>Customer Reviews</h2>
+
+      <div className="review-grid">
+
+        <div className="review-card">
+          <p>
+            "The purest honey I have ever tasted.
+            Rich flavor and amazing quality."
+          </p>
+
+          <h4>- Sarah M.</h4>
+        </div>
+
+        <div className="review-card">
+          <p>
+            "Perfect in tea, desserts and breakfast.
+            Highly recommended."
+          </p>
+
+          <h4>- David K.</h4>
+        </div>
+
+        <div className="review-card">
+          <p>
+            "Beautiful packaging and authentic
+            mountain honey."
+          </p>
+
+          <h4>- Emma R.</h4>
+        </div>
+
+      </div>
+
+    </section>
+  );
+}
+
+export default Reviews;
+
+
+===============================
+FILE: D:\himalayan-gold\src\context\AuthContext.jsx
+===============================
+import { createContext, useContext, useState } from "react";
+
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
+
+  const login = (email, password) => {
+    const storedUser = JSON.parse(
+      localStorage.getItem("registeredUser")
+    );
+
+    if (
+      storedUser &&
+      storedUser.email === email &&
+      storedUser.password === password
+    ) {
+      setUser(storedUser);
+      localStorage.setItem(
+        "user",
+        JSON.stringify(storedUser)
+      );
+      return true;
+    }
+
+    return false;
+  };
+
+  const register = (name, email, password) => {
+    const userData = {
+      name,
+      email,
+      password,
+    };
+
+    localStorage.setItem(
+      "registeredUser",
+      JSON.stringify(userData)
+    );
+
+    setUser(userData);
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(userData)
+    );
+  };
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        register,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () =>
+  useContext(AuthContext);
+
+
+===============================
+FILE: D:\himalayan-gold\src\context\CartContext.jsx
+===============================
+import {
+  createContext,
+  useContext,
+  useState
+} from "react";
+
+const CartContext = createContext();
+
+export function CartProvider({
+  children
+}) {
+
+  const [cart, setCart] =
+    useState([]);
+
+  const addToCart = (product) => {
+
+    const existing = cart.find(
+      item => item.id === product.id
+    );
+
+    if (existing) {
+
+      setCart(
+        cart.map(item =>
+          item.id === product.id
+            ? {
+                ...item,
+                quantity:
+                  item.quantity + 1
+              }
+            : item
+        )
+      );
+
+    } else {
+
+      setCart([
+        ...cart,
+        {
+          ...product,
+          quantity: 1
+        }
+      ]);
+
+    }
+  };
+
+  const removeFromCart = (id) => {
+
+    setCart(
+      cart.filter(
+        item => item.id !== id
+      )
+    );
+
+  };
+
+  const increaseQuantity = (id) => {
+
+    setCart(
+      cart.map(item =>
+        item.id === id
+          ? {
+              ...item,
+              quantity:
+                item.quantity + 1
+            }
+          : item
+      )
+    );
+
+  };
+
+  const decreaseQuantity = (id) => {
+
+    setCart(
+      cart
+        .map(item =>
+          item.id === id
+            ? {
+                ...item,
+                quantity:
+                  item.quantity - 1
+              }
+            : item
+        )
+        .filter(
+          item => item.quantity > 0
+        )
+    );
+
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  return (
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        increaseQuantity,
+        decreaseQuantity,
+        clearCart
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+
+}
+
+export const useCart = () =>
+  useContext(CartContext);
+
+
+===============================
+FILE: D:\himalayan-gold\src\data\products.js
+===============================
+const products = [
+{
+  id: 1,
+  name: "Raw Himalayan Honey",
+  price: "₹999",
+  image: "https://images.unsplash.com/photo-1587049352851-8d4e89133924?w=800",
+  badge: "Best Seller",
+  description:
+    "Premium raw Himalayan honey harvested from wild mountain flowers."
+}, 
+{
+id: 2,
+name: "Wild Forest Honey",
+image:
+"https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=800",
+price: "₹899",
+weight: "500g",
+origin: "Uttarakhand Himalayas",
+floralSource: "Wild Forest Blossoms",
+color: "Dark Amber",
+bestseller: true,
+description:
+"Collected from remote Himalayan forests. Rich in antioxidants with a bold earthy flavour and naturally occurring enzymes."
+},
+
+{
+id: 3,
+name: "Litchi Blossom Honey",
+image:
+"https://images.unsplash.com/photo-1471943311424-646960669fbc?w=800",
+price: "₹799",
+weight: "500g",
+origin: "Bihar & Himalayan Foothills",
+floralSource: "Litchi Orchards",
+color: "Light Golden",
+bestseller: false,
+description:
+"Delicate floral sweetness with fruity notes. Perfect for tea, desserts, pancakes and breakfast bowls."
+},
+
+{
+id: 4,
+name: "Kashmir Acacia Honey",
+image:
+"https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=800",
+price: "₹999",
+weight: "500g",
+origin: "Kashmir Valley",
+floralSource: "Acacia Flowers",
+color: "Pale Gold",
+bestseller: true,
+description:
+"Premium single-origin honey with a mild taste and silky texture. Naturally slow to crystallize."
+},
+
+{
+id: 5,
+name: "Multiflora Himalayan Honey",
+image:
+"https://images.unsplash.com/photo-1514996937319-344454492b37?w=800",
+price: "₹699",
+weight: "500g",
+origin: "Himachal Pradesh",
+floralSource: "Seasonal Mountain Flowers",
+color: "Golden Amber",
+bestseller: false,
+description:
+"A balanced everyday honey harvested from diverse Himalayan wildflowers for a complex floral profile."
+},
+
+{
+id: 6,
+name: "Sidr Mountain Honey",
+image:
+"https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=800",
+price: "₹1499",
+weight: "500g",
+origin: "Upper Himalayan Regions",
+floralSource: "Wild Sidr Trees",
+color: "Dark Gold",
+bestseller: true,
+description:
+"Rare premium honey prized for its rich taste, thick consistency and exceptional purity."
+},
+
+{
+id: 7,
+name: "Rhododendron Honey",
+image:
+"https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800",
+price: "₹1099",
+weight: "500g",
+origin: "Sikkim Himalayas",
+floralSource: "Rhododendron Flowers",
+color: "Deep Amber",
+bestseller: false,
+description:
+"Harvested from high-altitude rhododendron blooms. Aromatic, floral and distinctly Himalayan."
+},
+
+{
+id: 8,
+name: "Apple Blossom Honey",
+image:
+"https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
+price: "₹849",
+weight: "500g",
+origin: "Kullu Valley",
+floralSource: "Apple Orchards",
+color: "Light Amber",
+bestseller: false,
+description:
+"Smooth and fragrant honey with subtle fruity undertones sourced from Himalayan apple farms."
+},
+
+{
+id: 9,
+name: "Premium Reserve Honey",
+image:
+"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800",
+price: "₹1199",
+weight: "750g",
+origin: "Indian Himalayas",
+floralSource: "Exclusive Seasonal Harvest",
+color: "Rich Golden Amber",
+bestseller: true,
+description:
+"Our finest reserve collection. Small-batch harvested and carefully filtered to preserve natural goodness."
+}
+
+];
+
+export default products;
+
+
+===============================
+FILE: D:\himalayan-gold\src\data\recipes.js
+===============================
+const recipes = [
+  {
+    id: 1,
+
+    title: "Honey Lemon Tea",
+
+    image:
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574",
+
+    ingredients: [
+      "1 cup water",
+      "1 tsp tea leaves",
+      "1 tbsp Himalayan Honey",
+      "1/2 lemon"
+    ],
+
+    steps: [
+      "Boil water in a saucepan.",
+      "Add tea leaves and simmer for 2 minutes.",
+      "Strain into a cup.",
+      "Add lemon juice.",
+      "Mix in honey and serve warm."
+    ]
+  },
+
+  {
+    id: 2,
+
+    title: "Honey Pancakes",
+
+    image:
+      "https://images.unsplash.com/photo-1528207776546-365bb710ee93",
+
+    ingredients: [
+      "2 pancakes",
+      "2 tbsp honey",
+      "1 tbsp butter"
+    ],
+
+    steps: [
+      "Cook pancakes until golden.",
+      "Spread butter evenly.",
+      "Drizzle honey generously.",
+      "Serve immediately."
+    ]
+  },
+
+  {
+    id: 3,
+
+    title: "Greek Yogurt Bowl",
+
+    image:
+      "https://images.unsplash.com/photo-1488477181946-6428a0291777",
+
+    ingredients: [
+      "1 cup Greek yogurt",
+      "1 tbsp honey",
+      "1/2 cup berries",
+      "1 tbsp nuts"
+    ],
+
+    steps: [
+      "Add yogurt to bowl.",
+      "Top with berries.",
+      "Add nuts.",
+      "Drizzle honey.",
+      "Serve chilled."
+    ]
+  },
+
+  {
+    id: 4,
+
+    title: "Honey Smoothie",
+
+    image:
+      "https://images.unsplash.com/photo-1505252585461-04db1eb84625",
+
+    ingredients: [
+      "1 banana",
+      "1 cup milk",
+      "1 tbsp honey"
+    ],
+
+    steps: [
+      "Add ingredients to blender.",
+      "Blend until smooth.",
+      "Pour into glass.",
+      "Serve cold."
+    ]
+  }
+];
+
+export default recipes;
+
+
+===============================
+FILE: D:\himalayan-gold\src\Admin.jsx
+===============================
+import { useState, useEffect } from "react";
+
+function Admin() {
+
+  const [orders, setOrders] =
+    useState([]);
+
+  useEffect(() => {
+
+    const savedOrders =
+      JSON.parse(
+        localStorage.getItem("orders")
+      ) || [];
+
+    setOrders(savedOrders);
+
+  }, []);
+
+  const approvePayment = (
+    index
+  ) => {
+
+    const updatedOrders =
+      [...orders];
+
+    updatedOrders[index]
+      .paymentStatus =
+      "Paid";
+
+    updatedOrders[index]
+      .shippingStatus =
+      "Processing";
+
+    if (
+      !updatedOrders[index]
+        .trackingId ||
+      updatedOrders[index]
+        .trackingId ===
+      "Pending"
+    ) {
+
+      updatedOrders[index]
+        .trackingId =
+        "TRK" +
+        Math.floor(
+          100000 +
+          Math.random() *
+          900000
+        );
+    }
+
+    setOrders(
+      updatedOrders
+    );
+
+    localStorage.setItem(
+      "orders",
+      JSON.stringify(
+        updatedOrders
+      )
+    );
+  };
+
+  const updateShipping =
+    (
+      index,
+      value
+    ) => {
+
+      const updatedOrders =
+        [...orders];
+
+      updatedOrders[index]
+        .shippingStatus =
+        value;
+
+      setOrders(
+        updatedOrders
+      );
+
+      localStorage.setItem(
+        "orders",
+        JSON.stringify(
+          updatedOrders
+        )
+      );
+    };
+
+  return (
+    <div
+      style={{
+        padding: "30px"
+      }}
+    >
+
+      <h1>
+        Admin Dashboard
+      </h1>
+
+      <table
+        border="1"
+        cellPadding="10"
+        width="100%"
+      >
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Order ID
+            </th>
+
+            <th>
+              Customer
+            </th>
+
+            <th>
+              Email
+            </th>
+
+            <th>
+              Amount
+            </th>
+
+            <th>
+              Payment
+            </th>
+
+            <th>
+              Shipping
+            </th>
+
+            <th>
+              Tracking
+            </th>
+
+            <th>
+              Action
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {orders.map(
+            (
+              order,
+              index
+            ) => (
+
+            <tr
+              key={
+                order.orderId
+              }
+            >
+
+              <td>
+                {
+                  order.orderId
+                }
+              </td>
+
+              <td>
+                {order.name}
+              </td>
+
+              <td>
+                {order.email}
+              </td>
+
+              <td>
+                ₹
+                {
+                  order.amount
+                }
+              </td>
+
+              <td>
+                {
+                  order.paymentStatus
+                }
+              </td>
+
+              <td>
+
+                <select
+                  value={
+                    order.shippingStatus
+                  }
+                  onChange={e =>
+                    updateShipping(
+                      index,
+                      e.target
+                        .value
+                    )
+                  }
+                >
+
+                  <option>
+                    Awaiting Payment
+                  </option>
+
+                  <option>
+                    Processing
+                  </option>
+
+                  <option>
+                    Shipped
+                  </option>
+
+                  <option>
+                    Delivered
+                  </option>
+
+                </select>
+
+              </td>
+
+              <td>
+                {
+                  order.trackingId
+                }
+              </td>
+
+              <td>
+
+                {order
+                  .paymentStatus !==
+                "Paid" ? (
+
+                  <button
+                    onClick={() =>
+                      approvePayment(
+                        index
+                      )
+                    }
+                  >
+
+                    Confirm Payment
+
+                  </button>
+
+                ) : (
+
+                  "Approved"
+
+                )}
+
+              </td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  );
+}
+
+export default Admin;
+
+
+===============================
+FILE: D:\himalayan-gold\src\App.jsx
+===============================
+import { useState, useEffect } from "react";
+import { supabase } from "./supabaseClient";
+
+function Admin() {
+
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error(error);
+    } else {
+      setOrders(data);
+    }
+  };
+
+  const approvePayment = async (order) => {
+
+    const trackingId =
+      "TRK" + Math.floor(100000 + Math.random() * 900000);
+
+    const { error } = await supabase
+      .from("orders")
+      .update({
+        payment_status: "Paid",
+        shipping_status: "Processing",
+        tracking_id: trackingId
+      })
+      .eq("order_id", order.order_id);
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    alert("Payment Approved & Tracking ID Generated");
+
+    fetchOrders();
+  };
+
+  const updateShipping = async (orderId, value) => {
+
+    const { error } = await supabase
+      .from("orders")
+      .update({
+        shipping_status: value
+      })
+      .eq("order_id", orderId);
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    fetchOrders();
+  };
+
+  return (
+    <div style={{ padding: "30px" }}>
+
+      <h1>Admin Dashboard</h1>
+
+      <table
+        border="1"
+        cellPadding="10"
+        width="100%"
+      >
+
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Screenshot</th>
+            <th>Shipping</th>
+            <th>Tracking</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {orders.map((order) => (
+
+            <tr key={order.id}>
+
+              <td>{order.order_id}</td>
+
+              <td>{order.name}</td>
+
+              <td>{order.user_email}</td>
+
+              <td>₹{order.amount}</td>
+
+              <td>{order.payment_status}</td>
+
+              <td>
+
+                {order.payment_screenshot ? (
+                  <a
+                    href={order.payment_screenshot}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View Screenshot
+                  </a>
+                ) : (
+                  "No Upload"
+                )}
+
+              </td>
+
+              <td>
+
+                <select
+                  value={order.shipping_status}
+                  onChange={(e) =>
+                    updateShipping(order.order_id, e.target.value)
+                  }
+                >
+
+                  <option>Awaiting Payment</option>
+                  <option>Processing</option>
+                  <option>Shipped</option>
+                  <option>Delivered</option>
+
+                </select>
+
+              </td>
+
+              <td>{order.tracking_id || "Pending"}</td>
+
+              <td>
+
+                {order.payment_status !== "Paid" ? (
+                  <button
+                    onClick={() => approvePayment(order)}
+                  >
+                    Approve Payment
+                  </button>
+                ) : (
+                  "Approved"
+                )}
+
+              </td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  );
+}
+
+export default Admin;
+
+
+===============================
+FILE: D:\himalayan-gold\src\Cart.jsx
+===============================
+import { Link } from "react-router-dom";
+import { useCart } from "./context/CartContext";
+
+function Cart() {
+
+  const {
+    cart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity
+  } = useCart();
+
+  const total = cart.reduce(
+    (sum,item) =>
+      sum +
+      parseInt(
+        item.price.replace("₹","")
+      ) *
+      item.quantity,
+    0
+  );
+
+  if(cart.length === 0){
+
+    return (
+      <div className="empty-cart">
+
+        <h2>
+          Your Cart Is Empty
+        </h2>
+
+        <Link to="/">
+          Continue Shopping
+        </Link>
+
+      </div>
+    );
+  }
+
+  return (
+    <div className="cart-page">
+
+      <h1>
+        Shopping Cart
+      </h1>
+
+      {cart.map(item => (
+
+        <div
+          key={item.id}
+          className="cart-item"
+        >
+
+          <img
+            src={item.image}
+            alt={item.name}
+          />
+
+          <div>
+
+            <h3>
+              {item.name}
+            </h3>
+
+            <p>
+              {item.price}
+            </p>
+
+            <div className="quantity-box">
+
+              <button
+                onClick={() =>
+                  decreaseQuantity(item.id)
+                }
+              >
+                -
+              </button>
+
+              <span>
+                {item.quantity}
+              </span>
+
+              <button
+                onClick={() =>
+                  increaseQuantity(item.id)
+                }
+              >
+                +
+              </button>
+
+            </div>
+
+            <button
+              onClick={() =>
+                removeFromCart(item.id)
+              }
+            >
+              Remove
+            </button>
+
+          </div>
+
+        </div>
+
+      ))}
+
+      <h2>
+        Total: ₹{total}
+      </h2>
+
+      <Link
+        to="/checkout"
+        className="checkout-btn"
+      >
+        Proceed To Checkout
+      </Link>
+
+    </div>
+  );
+}
+
+export default Cart;
+
+
+===============================
+FILE: D:\himalayan-gold\src\Checkout.jsx
+===============================
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "./context/CartContext";
+import { useAuth } from "./context/AuthContext";
+import { supabase } from "./supabaseClient";
+
+function Checkout() {
+
+  const { cart, clearCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: user?.name || "",
+    email: user?.email || "",
+    address: "",
+    phone: ""
+  });
+
+  const total = cart.reduce(
+    (sum, item) =>
+      sum +
+      parseInt(item.price.replace("₹", "")) *
+      item.quantity,
+    0
+  );
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (cart.length === 0) {
+      alert("Cart is empty!");
+      return;
+    }
+
+    const orderId = "HG" + Date.now();
+
+    // Insert order into Supabase
+    const { error } = await supabase.from("orders").insert([
+      {
+        order_id: orderId,
+        user_email: form.email,
+        name: form.name,
+        phone: form.phone,
+        address: form.address,
+        amount: total,
+        payment_status: "Pending",
+        shipping_status: "Awaiting Payment",
+        tracking_id: "Pending"
+      }
+    ]);
+
+    if (error) {
+      console.error(error);
+      alert("Error placing order");
+      return;
+    }
+
+    // Insert order items
+    const items = cart.map(item => ({
+      order_id: orderId,
+      product_name: item.name,
+      price: parseInt(item.price.replace("₹", "")),
+      quantity: item.quantity
+    }));
+
+    await supabase.from("order_items").insert(items);
+
+    clearCart();
+
+    alert(
+      `Order Created Successfully!\n\nOrder ID: ${orderId}\n\nPlease complete payment using QR code.`
+    );
+
+    navigate("/track-order");
+  };
+
+  return (
+    <div className="checkout-page">
+
+      <h1>Checkout</h1>
+
+      <h2>Total: ₹{total}</h2>
+
+      {/* QR PAYMENT SECTION */}
+      <div style={{ margin: "20px 0" }}>
+        <h3>Scan & Pay</h3>
+        <img
+          src="/qr.png"
+          alt="QR Payment"
+          style={{ width: "200px" }}
+        />
+        <p>After payment, admin will verify your order.</p>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+
+        <input
+          placeholder="Full Name"
+          value={form.name}
+          required
+          onChange={(e) =>
+            setForm({ ...form, name: e.target.value })
+          }
+        />
+
+        <input
+          placeholder="Email"
+          value={form.email}
+          required
+          onChange={(e) =>
+            setForm({ ...form, email: e.target.value })
+          }
+        />
+
+        <input
+          placeholder="Phone"
+          required
+          onChange={(e) =>
+            setForm({ ...form, phone: e.target.value })
+          }
+        />
+
+        <textarea
+          placeholder="Address"
+          value={form.address}
+          required
+          onChange={(e) =>
+            setForm({ ...form, address: e.target.value })
+          }
+        />
+
+        <button type="submit">
+          Place Order
+        </button>
+
+      </form>
+
+    </div>
+  );
+}
+
+export default Checkout;
+
+
+===============================
+FILE: D:\himalayan-gold\src\ForgotPassword.jsx
+===============================
+export default function ForgotPassword() {
+  return (
+    <div className="container">
+      <h2>Forgot Password</h2>
+
+      <p>
+        Password reset link will be
+        sent to your email.
+      </p>
+
+      <input
+        type="email"
+        placeholder="Enter email"
+      />
+
+      <button>
+        Send Reset Link
+      </button>
+    </div>
+  );
+}
+
+
+===============================
+FILE: D:\himalayan-gold\src\index.css
+===============================
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:#fffdf8;
+  color:#222;
+  line-height:1.6;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:25px 8%;
+
+  background:white;
+
+  position:sticky;
+  top:0;
+  z-index:1000;
+
+  border-bottom:1px solid #eee;
+}
+
+.logo{
+  text-decoration:none;
+
+  font-size:2.5rem;
+  font-weight:700;
+
+  color:#c88a00;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:40px;
+}
+
+.nav-links a{
+  text-decoration:none;
+
+  color:#222;
+
+  font-size:1.1rem;
+  font-weight:600;
+
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  color:#d49b00;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  height:90vh;
+  overflow:hidden;
+}
+
+.hero-bg{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+
+  background:rgba(0,0,0,.45);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+  color:white;
+
+  padding:20px;
+}
+
+.hero-overlay h1{
+  font-size:4rem;
+  margin-bottom:20px;
+}
+
+.hero-overlay p{
+  max-width:700px;
+  font-size:1.2rem;
+  margin-bottom:25px;
+}
+
+.hero-overlay button{
+  border:none;
+  padding:15px 30px;
+  border-radius:50px;
+  background:#d49b00;
+  color:white;
+  cursor:pointer;
+}
+/* ===========================
+   FEATURED PRODUCT
+=========================== */
+
+.featured-product{
+  padding:80px 8%;
+  background:#faf8f2;
+}
+
+.featured-badge{
+  text-align:center;
+  font-size:2rem;
+  font-weight:700;
+  color:#c99200;
+  margin-bottom:40px;
+}
+
+.featured-container{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.featured-image img{
+  width:100%;
+  height:450px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+.featured-content{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.featured-content h2{
+  font-size:2.5rem;
+  margin-bottom:20px;
+}
+
+.featured-content p{
+  font-size:1.1rem;
+  line-height:1.8;
+  color:#555;
+  margin-bottom:25px;
+}
+
+.featured-content ul{
+  list-style:none;
+  padding:0;
+}
+
+.featured-content li{
+  margin-bottom:12px;
+  font-size:1rem;
+}
+
+.featured-content li::before{
+  content:"✓";
+  color:#c99200;
+  margin-right:10px;
+  font-weight:bold;
+}
+
+.featured-price{
+  margin-top:25px;
+  font-size:2rem;
+  font-weight:700;
+  color:#c99200;
+}
+
+@media(max-width:768px){
+
+  .featured-container{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .featured-image img{
+    height:300px;
+  }
+
+  .featured-content h2{
+    font-size:2rem;
+  }
+}
+/* ===========================
+   FEATURED PRODUCT
+=========================== */
+
+.featured-product{
+  padding:80px 8%;
+  background:#faf8f2;
+}
+
+.featured-badge{
+  text-align:center;
+  font-size:2rem;
+  font-weight:700;
+  color:#c99200;
+  margin-bottom:40px;
+}
+
+.featured-container{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.featured-image img{
+  width:100%;
+  height:450px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.featured-content h2{
+  font-size:2.5rem;
+  margin-bottom:20px;
+}
+
+.featured-content p{
+  font-size:1.1rem;
+  line-height:1.8;
+  color:#555;
+  margin-bottom:25px;
+}
+
+.featured-content ul{
+  list-style:none;
+  padding:0;
+}
+
+.featured-content li{
+  margin-bottom:12px;
+  font-size:1rem;
+}
+
+.featured-content li::before{
+  content:"✓";
+  color:#c99200;
+  margin-right:10px;
+  font-weight:bold;
+}
+
+.featured-price{
+  margin-top:25px;
+  font-size:2rem;
+  font-weight:700;
+  color:#c99200;
+}
+
+@media(max-width:768px){
+
+  .featured-container{
+    grid-template-columns:1fr;
+  }
+
+  .featured-image img{
+    height:300px;
+  }
+
+  .featured-content h2{
+    font-size:2rem;
+  }
+
+}
+/* =========================
+   PRODUCTS
+========================= */
+
+.products{
+  padding:70px 5%;
+}
+
+.products h2{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+/* =========================
+   PRODUCT DETAILS
+========================= */
+
+.product-page{
+  padding:100px 10%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+}
+
+.product-gallery{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.product-gallery img{
+  width:100%;
+  border-radius:15px;
+}
+
+.product-info h1{
+  margin-bottom:20px;
+}
+
+.product-info h2{
+  color:#d49b00;
+  margin-bottom:20px;
+}
+
+.product-info button{
+  border:none;
+  background:#d49b00;
+  color:white;
+  padding:15px 30px;
+  border-radius:10px;
+  cursor:pointer;
+  margin-top:20px;
+}
+/* =========================
+   PRODUCTS + RECIPES
+========================= */
+
+.products,
+.recipes{
+  max-width:1200px;
+  margin:0 auto;
+  padding:60px 20px;
+}
+/* =========================
+   SHARED GRID
+========================= */
+
+.grid{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(240px,1fr));
+  gap:24px;
+}
+
+/* =========================
+   SHARED CARD
+========================= */
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,.08);
+  transition:.3s;
+
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 24px rgba(0,0,0,.12);
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+.card h3{
+  font-size:1.1rem;
+  font-weight:700;
+  line-height:1.4;
+  margin-bottom:15px;
+  min-height:70px;
+  padding:0;
+}
+
+.card p{
+  font-size:1rem;
+  font-weight:600;
+  color:#555;
+  margin-bottom:15px;
+  padding:0;
+}
+
+.card-content a{
+  margin-top:auto;
+}
+
+.card button{
+  background:#d49b00;
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:.9rem;
+  font-weight:600;
+  transition:.3s;
+}
+
+.card button:hover{
+  background:#b98500;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+  .grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .card img{
+    height:200px;
+  }
+
+}
+/* =========================
+   RECIPE DETAILS PAGE
+========================= */
+
+.recipe-page{
+  max-width:1400px;
+  margin:0 auto;
+  padding:60px 30px;
+}
+
+.recipe-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:start;
+}
+
+.recipe-image-section{
+  position:sticky;
+  top:120px;
+}
+
+.recipe-banner{
+  width:100%;
+  height:600px;
+  object-fit:cover;
+  border-radius:24px;
+  box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+.recipe-content-section h1{
+  font-size:3rem;
+  margin-bottom:25px;
+  color:#222;
+}
+
+.recipe-tag{
+  display:inline-block;
+  background:#fff4cf;
+  color:#b98500;
+  padding:10px 18px;
+  border-radius:999px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.recipe-card{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  margin-bottom:25px;
+}
+
+.recipe-card h2{
+  color:#c99200;
+  margin-bottom:20px;
+}
+
+.ingredient-list{
+  list-style:none;
+}
+
+.ingredient-list li{
+  padding:10px 0;
+  border-bottom:1px solid #f1f1f1;
+  font-size:1.05rem;
+}
+
+.instruction-list{
+  padding-left:20px;
+}
+
+.instruction-list li{
+  margin-bottom:15px;
+  line-height:1.8;
+  font-size:1.05rem;
+}
+
+@media(max-width:768px){
+
+  .recipe-layout{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .recipe-image-section{
+    position:static;
+  }
+
+  .recipe-banner{
+    height:300px;
+  }
+
+  .recipe-content-section h1{
+    font-size:2rem;
+  }
+
+}
+/* =========================
+   REVIEWS
+========================= */
+
+.reviews{
+  padding:100px 10%;
+}
+
+.review-grid{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+
+.review-card{
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+/* =========================
+   NEWSLETTER
+========================= */
+
+.newsletter{
+  padding:100px 10%;
+  text-align:center;
+  background:#fff6da;
+}
+
+.newsletter-form{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.newsletter-form input{
+  padding:14px;
+  width:320px;
+}
+
+.newsletter-form button{
+  border:none;
+  background:#d49b00;
+  color:white;
+  padding:14px 24px;
+  border-radius:10px;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-cta{
+  padding:100px 10%;
+  text-align:center;
+}
+
+.contact-cta button{
+  border:none;
+  background:#d49b00;
+  color:white;
+  padding:15px 30px;
+  border-radius:10px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  background:#111;
+  color:white;
+  padding:60px 20px;
+  text-align:center;
+}
+
+/* =========================
+   CART PAGE
+========================= */
+
+.cart-page{
+  max-width:1200px;
+  margin:auto;
+  padding:80px 8%;
+}
+
+.cart-item{
+  display:flex;
+  gap:25px;
+  align-items:center;
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.cart-item img{
+  width:140px;
+  height:140px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.checkout-btn{
+  display:inline-block;
+  margin-top:25px;
+  background:#d49b00;
+  color:white;
+  padding:15px 30px;
+  border-radius:10px;
+}
+
+/* =========================
+   CHECKOUT
+========================= */
+
+.checkout-page{
+  max-width:800px;
+  margin:auto;
+  padding:80px 8%;
+}
+
+.checkout-page form{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.checkout-page input,
+.checkout-page textarea{
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:10px;
+}
+
+.checkout-page button{
+  border:none;
+  background:#d49b00;
+  color:white;
+  padding:16px;
+  border-radius:10px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+  .navbar{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .nav-links{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .hero-overlay h1{
+    font-size:2.3rem;
+  }
+
+  .product-page,
+  .bestseller{
+    grid-template-columns:1fr;
+  }
+
+  .cart-item{
+    flex-direction:column;
+    text-align:center;
+  }
+
+}
+.quantity-box{
+display:flex;
+align-items:center;
+gap:15px;
+margin-top:15px;
+}
+
+.quantity-box button{
+width:40px;
+height:40px;
+border:none;
+background:#d49b00;
+color:white;
+font-size:20px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.quantity-box span{
+font-size:20px;
+font-weight:700;
+min-width:30px;
+text-align:center;
+}
+
+
+===============================
+FILE: D:\himalayan-gold\src\Login.jsx
+===============================
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
+
+export default function Login() {
+  const [email, setEmail] =
+    useState("");
+
+  const [password, setPassword] =
+    useState("");
+
+  const { login } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const success = login(
+      email,
+      password
+    );
+
+    if (success) {
+      navigate("/profile");
+    } else {
+      alert("Invalid credentials");
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2>Login</h2>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Email"
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+        />
+
+        <button type="submit">
+          Login
+        </button>
+      </form>
+    </div>
+  );
+}
+
+
+===============================
+FILE: D:\himalayan-gold\src\main.jsx
+===============================
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+import App from "./App";
+import "./index.css";
+
+import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
+
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <CartProvider>
+        <App />
+      </CartProvider>
+    </AuthProvider>
+  </React.StrictMode>
+);
+
+
+===============================
+FILE: D:\himalayan-gold\src\PaymentUpload.jsx
+===============================
+import { useState } from "react";
+import { supabase } from "./supabaseClient";
+
+function PaymentUpload() {
+
+  const [orderId, setOrderId] = useState("");
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+
+    if (!orderId || !file) {
+      setMessage("Please enter Order ID and upload file");
+      return;
+    }
+
+    setUploading(true);
+    setMessage("");
+
+    try {
+
+      // 1. Create file path in storage
+      const filePath = `${orderId}/${Date.now()}-${file.name}`;
+
+      // 2. Upload file to Supabase Storage
+      const { error: uploadError } = await supabase
+        .storage
+        .from("payment-proofs")
+        .upload(filePath, file);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      // 3. Get public URL
+      const { data } = supabase
+        .storage
+        .from("payment-proofs")
+        .getPublicUrl(filePath);
+
+      const imageUrl = data.publicUrl;
+
+      // 4. Update order in database
+      const { error: dbError } = await supabase
+        .from("orders")
+        .update({
+          payment_screenshot: imageUrl,
+          payment_status: "Pending Verification"
+        })
+        .eq("order_id", orderId);
+
+      if (dbError) {
+        throw dbError;
+      }
+
+      setMessage("Payment proof uploaded successfully!");
+      setOrderId("");
+      setFile(null);
+
+    } catch (error) {
+      console.error(error);
+      setMessage("Upload failed. Try again.");
+    }
+
+    setUploading(false);
+  };
+
+  return (
+    <div style={{ padding: "30px" }}>
+
+      <h1>Upload Payment Proof</h1>
+
+      <form onSubmit={handleUpload}>
+
+        <input
+          type="text"
+          placeholder="Enter Order ID (e.g. HG123456789)"
+          value={orderId}
+          onChange={(e) => setOrderId(e.target.value)}
+          required
+          style={{ display: "block", marginBottom: "10px", padding: "8px" }}
+        />
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setFile(e.target.files[0])}
+          required
+          style={{ display: "block", marginBottom: "10px" }}
+        />
+
+        <button type="submit" disabled={uploading}>
+          {uploading ? "Uploading..." : "Upload Payment Proof"}
+        </button>
+
+      </form>
+
+      {message && (
+        <p style={{ marginTop: "15px" }}>
+          {message}
+        </p>
+      )}
+
+    </div>
+  );
+}
+
+export default PaymentUpload;
+
+
+===============================
+FILE: D:\himalayan-gold\src\ProductDetails.jsx
+===============================
+import { useParams } from "react-router-dom";
+import products from "./data/products";
+import { useCart } from "./context/CartContext";
+
+function ProductDetails() {
+
+  const { id } = useParams();
+
+  const { addToCart } = useCart();
+
+  const product = products.find(
+    item => item.id === Number(id)
+  );
+
+  if(!product){
+    return <h1>Product Not Found</h1>;
+  }
+
+  return (
+    <div className="product-page">
+
+      <div className="product-gallery">
+
+        <img
+          src={product.image}
+          alt={product.name}
+        />
+
+      </div>
+
+      <div className="product-info">
+
+        <div className="product-tag">
+          Bestseller
+        </div>
+
+        <h1>
+          {product.name}
+        </h1>
+
+        <h2>
+          {product.price}
+        </h2>
+
+        <p>
+          <strong>Origin:</strong>{" "}
+          {product.origin}
+        </p>
+
+        <p>
+          <strong>Weight:</strong>{" "}
+          {product.weight}
+        </p>
+
+        <br />
+
+        <p>
+          {product.description}
+        </p>
+
+        <ul className="product-features">
+
+          <li>
+            100% Raw Himalayan Honey
+          </li>
+
+          <li>
+            No Added Sugar
+          </li>
+
+          <li>
+            Lab Tested
+          </li>
+
+          <li>
+            Rich In Antioxidants
+          </li>
+
+        </ul>
+
+        <button
+          onClick={() =>
+            addToCart(product)
+          }
+        >
+          Add To Cart
+        </button>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default ProductDetails;
+
+
+===============================
+FILE: D:\himalayan-gold\src\Profile.jsx
+===============================
+import { useAuth } from "./context/AuthContext";
+
+export default function Profile() {
+
+  const {
+    user,
+    logout
+  } = useAuth();
+
+  if (!user) {
+
+    return (
+      <h2>
+        Please login first.
+      </h2>
+    );
+
+  }
+
+  const orders =
+    JSON.parse(
+      localStorage.getItem(
+        "orders"
+      )
+    ) || [];
+
+  const myOrders =
+    orders.filter(
+      order =>
+        order.email ===
+        user.email
+    );
+
+  return (
+    <div className="container">
+
+      <h2>
+        My Profile
+      </h2>
+
+      <p>
+        <strong>
+          Name:
+        </strong>
+        {" "}
+        {user.name}
+      </p>
+
+      <p>
+        <strong>
+          Email:
+        </strong>
+        {" "}
+        {user.email}
+      </p>
+
+      <button
+        onClick={logout}
+      >
+        Logout
+      </button>
+
+      <hr />
+
+      <h2>
+        My Orders
+      </h2>
+
+      {myOrders.map(
+        order => (
+
+        <div
+          key={
+            order.orderId
+          }
+        >
+
+          <p>
+            Order ID:
+            {" "}
+            {order.orderId}
+          </p>
+
+          <p>
+            Tracking:
+            {" "}
+            {order.trackingId}
+          </p>
+
+          <p>
+            Amount:
+            ₹{order.amount}
+          </p>
+
+          <p>
+            Payment:
+            {" "}
+            {
+              order.paymentStatus
+            }
+          </p>
+
+          <p>
+            Shipping:
+            {" "}
+            {
+              order.shippingStatus
+            }
+          </p>
+
+          <hr />
+
+        </div>
+
+      ))}
+
+    </div>
+  );
+}
+
+
+===============================
+FILE: D:\himalayan-gold\src\RecipeDetails.jsx
+===============================
+import { useParams } from "react-router-dom";
+import recipes from "./data/recipes";
+
+function RecipeDetails() {
+  const { id } = useParams();
+
+  const recipe = recipes.find(
+    (item) => item.id === Number(id)
+  );
+
+  if (!recipe) {
+    return <h1>Recipe Not Found</h1>;
+  }
+
+  return (
+    <div className="recipe-page">
+
+      <div className="recipe-layout">
+
+        <div className="recipe-image-section">
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="recipe-banner"
+          />
+        </div>
+
+        <div className="recipe-content-section">
+
+          <div className="recipe-tag">
+            🍯 Himalayan Honey Recipe
+          </div>
+
+          <h1>{recipe.title}</h1>
+
+          <div className="recipe-card">
+
+            <h2>⭐ Ingredients</h2>
+
+            <ul className="ingredient-list">
+              {recipe.ingredients.map((item, index) => (
+                <li key={index}>
+                  ✓ {item}
+                </li>
+              ))}
+            </ul>
+
+          </div>
+
+          <div className="recipe-card">
+
+            <h2>📝 Instructions</h2>
+
+            <ol className="instruction-list">
+              {recipe.steps.map((step, index) => (
+                <li key={index}>
+                  {step}
+                </li>
+              ))}
+            </ol>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default RecipeDetails;
+
+
+===============================
+FILE: D:\himalayan-gold\src\Register.jsx
+===============================
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
+
+export default function Register() {
+  const [name, setName] =
+    useState("");
+
+  const [email, setEmail] =
+    useState("");
+
+  const [password, setPassword] =
+    useState("");
+
+  const { register } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    register(
+      name,
+      email,
+      password
+    );
+
+    navigate("/profile");
+  };
+
+  return (
+    <div className="container">
+      <h2>Register</h2>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          placeholder="Name"
+          onChange={(e) =>
+            setName(e.target.value)
+          }
+        />
+
+        <input
+          type="email"
+          placeholder="Email"
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+        />
+
+        <button type="submit">
+          Register
+        </button>
+      </form>
+    </div>
+  );
+}
+
+
+===============================
+FILE: D:\himalayan-gold\src\supabaseClient.js
+===============================
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+
+===============================
+FILE: D:\himalayan-gold\src\TrackOrder.jsx
+===============================
+import { useState } from "react";
+
+function TrackOrder() {
+
+  const [orderId,
+    setOrderId] =
+    useState("");
+
+  const [order,
+    setOrder] =
+    useState(null);
+
+  const searchOrder =
+    () => {
+
+      const orders =
+        JSON.parse(
+          localStorage.getItem(
+            "orders"
+          )
+        ) || [];
+
+      const found =
+        orders.find(
+          item =>
+            item.orderId ===
+            orderId
+        );
+
+      setOrder(found);
+    };
+
+  return (
+    <div
+      style={{
+        padding: "30px"
+      }}
+    >
+
+      <h1>
+        Track Order
+      </h1>
+
+      <input
+        placeholder="Enter Order ID"
+        value={orderId}
+        onChange={e =>
+          setOrderId(
+            e.target.value
+          )
+        }
+      />
+
+      <button
+        onClick={
+          searchOrder
+        }
+      >
+        Search
+      </button>
+
+      {order && (
+
+        <div
+          style={{
+            marginTop:
+              "20px"
+          }}
+        >
+
+          <h2>
+            {
+              order.orderId
+            }
+          </h2>
+
+          <p>
+            Tracking ID:
+            {" "}
+            {
+              order.trackingId
+            }
+          </p>
+
+          <p>
+            Payment:
+            {" "}
+            {
+              order.paymentStatus
+            }
+          </p>
+
+          <p>
+            Shipping:
+            {" "}
+            {
+              order.shippingStatus
+            }
+          </p>
+
+          <hr />
+
+          <p>
+            ✓ Order
+            Placed
+          </p>
+
+          {order
+            .paymentStatus ===
+          "Paid" && (
+            <p>
+              ✓ Payment
+              Verified
+            </p>
+          )}
+
+          {(order
+            .shippingStatus ===
+            "Processing" ||
+            order
+              .shippingStatus ===
+              "Shipped" ||
+            order
+              .shippingStatus ===
+              "Delivered") && (
+            <p>
+              ✓ Processing
+            </p>
+          )}
+
+          {(order
+            .shippingStatus ===
+            "Shipped" ||
+            order
+              .shippingStatus ===
+              "Delivered") && (
+            <p>
+              ✓ Shipped
+            </p>
+          )}
+
+          {order
+            .shippingStatus ===
+            "Delivered" && (
+            <p>
+              ✓ Delivered
+            </p>
+          )}
+
+        </div>
+
+      )}
+
+    </div>
+  );
+}
+
+export default TrackOrder;

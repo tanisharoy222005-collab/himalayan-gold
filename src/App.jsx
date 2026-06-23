@@ -1,169 +1,154 @@
-import { useState, useEffect } from "react";
-import { supabase } from "./supabaseClient";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation
+} from "react-router-dom";
 
-function Admin() {
+import { useEffect } from "react";
 
-  const [orders, setOrders] = useState([]);
+import Navbar from "./components/Navbar";
+
+import Hero from "./components/Hero";
+import FeaturedProducts from "./components/FeaturedProducts";
+import ProductGrid from "./components/ProductGrid";
+import Recipes from "./components/Recipes";
+import Reviews from "./components/Reviews";
+import Newsletter from "./components/Newsletter";
+import ContactCTA from "./components/ContactCTA";
+import Footer from "./components/Footer";
+
+import ProductDetails from "./ProductDetails";
+import RecipeDetails from "./RecipeDetails";
+
+import Cart from "./Cart";
+import Checkout from "./Checkout";
+
+import Login from "./Login";
+import Register from "./Register";
+import ForgotPassword from "./ForgotPassword";
+import Profile from "./Profile";
+
+import Admin from "./Admin";
+import TrackOrder from "./TrackOrder";
+import PaymentUpload from "./PaymentUpload";
+
+function ScrollHandler() {
+  const location = useLocation();
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    const params =
+      new URLSearchParams(location.search);
 
-  const fetchOrders = async () => {
-    const { data, error } = await supabase
-      .from("orders")
-      .select("*")
-      .order("created_at", { ascending: false });
+    const section =
+      params.get("section");
 
-    if (error) {
-      console.error(error);
-    } else {
-      setOrders(data);
+    if (section) {
+      setTimeout(() => {
+        const element =
+          document.getElementById(section);
+
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+      }, 300);
     }
-  };
+  }, [location]);
 
-  const approvePayment = async (order) => {
+  return null;
+}
 
-    const trackingId =
-      "TRK" + Math.floor(100000 + Math.random() * 900000);
-
-    const { error } = await supabase
-      .from("orders")
-      .update({
-        payment_status: "Paid",
-        shipping_status: "Processing",
-        tracking_id: trackingId
-      })
-      .eq("order_id", order.order_id);
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    alert("Payment Approved & Tracking ID Generated");
-
-    fetchOrders();
-  };
-
-  const updateShipping = async (orderId, value) => {
-
-    const { error } = await supabase
-      .from("orders")
-      .update({
-        shipping_status: value
-      })
-      .eq("order_id", orderId);
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    fetchOrders();
-  };
-
+function Home() {
   return (
-    <div style={{ padding: "30px" }}>
-
-      <h1>Admin Dashboard</h1>
-
-      <table
-        border="1"
-        cellPadding="10"
-        width="100%"
-      >
-
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Email</th>
-            <th>Amount</th>
-            <th>Payment</th>
-            <th>Screenshot</th>
-            <th>Shipping</th>
-            <th>Tracking</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          {orders.map((order) => (
-
-            <tr key={order.id}>
-
-              <td>{order.order_id}</td>
-
-              <td>{order.name}</td>
-
-              <td>{order.user_email}</td>
-
-              <td>₹{order.amount}</td>
-
-              <td>{order.payment_status}</td>
-
-              <td>
-
-                {order.payment_screenshot ? (
-                  <a
-                    href={order.payment_screenshot}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View Screenshot
-                  </a>
-                ) : (
-                  "No Upload"
-                )}
-
-              </td>
-
-              <td>
-
-                <select
-                  value={order.shipping_status}
-                  onChange={(e) =>
-                    updateShipping(order.order_id, e.target.value)
-                  }
-                >
-
-                  <option>Awaiting Payment</option>
-                  <option>Processing</option>
-                  <option>Shipped</option>
-                  <option>Delivered</option>
-
-                </select>
-
-              </td>
-
-              <td>{order.tracking_id || "Pending"}</td>
-
-              <td>
-
-                {order.payment_status !== "Paid" ? (
-                  <button
-                    onClick={() => approvePayment(order)}
-                  >
-                    Approve Payment
-                  </button>
-                ) : (
-                  "Approved"
-                )}
-
-              </td>
-
-            </tr>
-
-          ))}
-
-        </tbody>
-
-      </table>
-
-    </div>
+    <>
+      <Hero />
+      <FeaturedProducts />
+      <ProductGrid />
+      <Recipes />
+      <Reviews />
+      <Newsletter />
+      <ContactCTA />
+      <Footer />
+    </>
   );
 }
 
-export default Admin;
+function App() {
+  return (
+    <BrowserRouter>
+
+      <ScrollHandler />
+
+      <Navbar />
+
+      <Routes>
+
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        <Route
+          path="/product/:id"
+          element={<ProductDetails />}
+        />
+
+        <Route
+          path="/recipe/:id"
+          element={<RecipeDetails />}
+        />
+
+        <Route
+          path="/cart"
+          element={<Cart />}
+        />
+
+        <Route
+          path="/checkout"
+          element={<Checkout />}
+        />
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
+
+        <Route
+          path="/admin"
+          element={<Admin />}
+        />
+
+        <Route
+          path="/track-order"
+          element={<TrackOrder />}
+        />
+
+        <Route
+          path="/payment-upload"
+          element={<PaymentUpload />}
+        />
+
+      </Routes>
+
+    </BrowserRouter>
+  );
+}
+
+export default App;
